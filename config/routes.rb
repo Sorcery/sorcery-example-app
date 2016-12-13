@@ -14,14 +14,14 @@ Collaboration::Application.routes.draw do
   resources :user_sessions
   resources :password_resets
 
-  post 'login' => 'user_sessions#new', :as => :login
+  get 'login' => 'user_sessions#new', :as => :login
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
   resource :oauth do
     get :callback
   end
 
-  post 'oauth/:provider' => 'oauths#oauth', :as => :auth_at_provider
+  get 'oauth/:provider' => 'oauths#oauth', :as => :auth_at_provider
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
