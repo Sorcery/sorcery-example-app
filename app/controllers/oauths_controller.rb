@@ -1,8 +1,7 @@
-require 'oauth2'
 class OauthsController < ApplicationController
-  skip_before_filter :require_login
+  skip_before_action :require_login
 
-  # sends the user on a trip to the provider,
+  # Sends the user on a trip to the provider,
   # and after authorizing there back to the callback url.
   def oauth
     login_at(params[:provider])
@@ -10,6 +9,7 @@ class OauthsController < ApplicationController
 
   def callback
     provider = params[:provider]
+
     begin
       if @user = login_from(provider)
         redirect_to root_path, notice: "Logged in from #{provider.titleize}!"
@@ -25,11 +25,11 @@ class OauthsController < ApplicationController
         end
       end
     rescue ::OAuth2::Error => e
-      p e
-      puts e.code
-      puts e.description
-      puts e.message
-      puts e.backtrace
+      Rails.logger.error e
+      Rails.logger.error e.code
+      Rails.logger.error e.description
+      Rails.logger.error e.message
+      Rails.logger.error e.backtrace
     end
   end
 end

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :require_login, except: [:not_authenticated]
+  before_action :require_login, except: [:not_authenticated]
 
   helper_method :current_users_list
 

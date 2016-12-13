@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :require_login_from_http_basic, only: [:login_from_http_basic]
-  skip_before_filter :require_login, only: [:index, :new, :create, :activate, :login_from_http_basic]
+  before_action :require_login_from_http_basic, only: [:login_from_http_basic]
+  skip_before_action :require_login, only: [:index, :new, :create, :activate, :login_from_http_basic]
+
   # GET /users
   # GET /users.xml
   def index
@@ -92,7 +93,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # The before filter requires authentication using HTTP Basic,
+  # The before action requires authentication using HTTP Basic,
   # And this action redirects and sets a success notice.
   def login_from_http_basic
     redirect_to users_path, notice: 'Login from basic auth successful'
