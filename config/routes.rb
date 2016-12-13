@@ -1,5 +1,5 @@
 Collaboration::Application.routes.draw do
-  root :to => 'users#index'
+  root to: 'users#index'
 
   resources :users, :admins do
     collection do
