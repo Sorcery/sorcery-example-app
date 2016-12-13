@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :require_login_from_http_basic, :only => [:login_from_http_basic]
-  skip_before_filter :require_login, :only => [:index, :new, :create, :activate, :login_from_http_basic]
+  before_filter :require_login_from_http_basic, only: [:login_from_http_basic]
+  skip_before_filter :require_login, only: [:index, :new, :create, :activate, :login_from_http_basic]
   # GET /users
   # GET /users.xml
   def index
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @users }
+      format.xml  { render xml: @users }
     end
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @user }
+      format.xml  { render xml: @user }
     end
   end
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @user }
+      format.xml  { render xml: @user }
     end
   end
 
@@ -42,15 +42,15 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to(:users, :notice => 'Registration successfull. Check your email for activation instructions.') }
-        format.xml { render :xml => @user, :status => :created, :location => @user }
+        format.html { redirect_to(:users, notice: 'Registration successfull. Check your email for activation instructions.') }
+        format.xml { render xml: @user, status: :created, location: @user }
       else
-        format.html { render :action => "new" }
-        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.html { render action: 'new' }
+        format.xml { render xml: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,12 +61,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+      if @user.update(user_params)
+        format.html { redirect_to(@user, notice: 'User was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.html { render action: 'edit' }
+        format.xml  { render xml: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -82,19 +82,25 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
   def activate
     if @user = User.load_from_activation_token(params[:id])
       @user.activate!
-      redirect_to(login_path, :notice => 'User was successfully activated.')
+      redirect_to(login_path, notice: 'User was successfully activated.')
     else
       not_authenticated
     end
   end
-  
+
   # The before filter requires authentication using HTTP Basic,
   # And this action redirects and sets a success notice.
   def login_from_http_basic
-    redirect_to users_path, :notice => 'Login from basic auth successful'
+    redirect_to users_path, notice: 'Login from basic auth successful'
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end
