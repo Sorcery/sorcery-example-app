@@ -1,22 +1,25 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.9'
-gem 'mysql2', '0.2.11'
-# Deploy with Capistrano
-# gem 'capistrano'
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 4.2'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
 
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
+gem 'sorcery', '~> 0.9'
 
-
-# Bundle the extra gems:
-gem 'sorcery', '0.7.4'
-
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
 group :development, :test do
-  gem "test-unit", "~> 2.3.0"
-  gem "rspec", "~> 2.5.0"
-  gem 'rspec-rails', "~> 2.5.0"
+  gem 'byebug', platform: :mri
+end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background.
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
