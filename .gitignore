@@ -6,3 +6,9 @@ tmp/**/*
 rvm*
 vendor
 .idea
+
+# macOS
+.DS_Store
+
+# rbenv
+.ruby-version
