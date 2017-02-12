@@ -1,4 +1,4 @@
-Collaboration::Application.routes.draw do
+Rails.application.routes.draw do
   root to: 'users#index'
 
   resources :users, :admins do
