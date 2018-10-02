@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     get :activate, on: :member
   end
 
-  resources :user_sessions
-  resources :password_resets
+  resources :user_sessions, only: [:new, :create, :destroy]
+  resources :password_reset, only: [:create, :edit, :update]
 
   get 'login' => 'user_sessions#new', as: :login
   delete 'logout' => 'user_sessions#destroy', as: :logout
