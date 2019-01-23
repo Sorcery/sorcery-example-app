@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+    rails:
+        image: rails
+        container_name: sorcery_example
+        build: .
+        environment:
+            RAILS_ROOT: /rails
+        volumes:
+            - .:/rails
+        command: rails s -b 0.0.0.0
+        tty: true
+        ports:
+            - "3000:3000"
