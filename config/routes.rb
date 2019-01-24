@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :user_sessions, only: [:new, :create, :destroy]
-  resources :password_reset, only: [:create, :edit, :update]
+  resources :password_resets, only: [:create, :edit, :update]
 
   get 'login' => 'user_sessions#new', as: :login
   delete 'logout' => 'user_sessions#destroy', as: :logout
