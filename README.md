@@ -8,3 +8,12 @@ Files of interest:
 - `app/views/*`
 - `config/initializers/sorcery.rb`
 - `db/migrate/*`
+
+## Development Environment – Docker
+
+Run `docker-compose up` to start the container. 
+
+Use `docker exec sorcery_example <command>` to run a shell command.  
+For example:  
+`docker exec sorcery_example rake db:migrate`  
+`docker exec sorcery_example bundle install`
