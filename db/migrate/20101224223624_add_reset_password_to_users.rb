@@ -1,4 +1,4 @@
-class AddResetPasswordToUsers < ActiveRecord::Migration
+class AddResetPasswordToUsers < ActiveRecord::Migration[5.2]
   def self.up
     add_column :users, :reset_password_token, :string, default: nil
     add_column :users, :reset_password_token_expires_at, :datetime, default: nil
